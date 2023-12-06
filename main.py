@@ -1,27 +1,25 @@
-sözlük = {}
-def urlparse(url):
-    tam_url = url
-    if url.startswith("https://"):
-        url = url.replace("https://","")
-        sözlük["baslangic"] = "https://" #******
-    if url.startswith("http://"):
-        url = url.replace("http://","")
-        sözlük["baslangic"] = "http://" #******
-        
-    #======================================
-    sözlük["site"] = str(url).split("/")[0]
-    
-    uzunluk = len(sözlük["baslangic"]+sözlük["site"])
-    sözlük["alt_sayfa"] = tam_url[uzunluk:]
-    #======================================
-    
-#================================
-    print(sözlük["baslangic"])
-    print(sözlük["site"])
-    print(sözlük["alt_sayfa"])
-#================================
-print("enter url :\n")
-url = input()
-print("=============")
-if __name__ == "__main__":
-    urlparse(url)
+class URLParser:
+    def __init__(self):
+        self.protokol = None
+        self.domain = None
+        self.subpage = None
+
+    def urlparse(self,url):
+        tam_url = url
+        if url.startswith("https://"):
+            url = url.replace("https://","")
+            self.protokol = "https://"
+        if url.startswith("http://"):
+            url = url.replace("http://","")
+            self.protokol = "http://"
+
+        self.domain = str(url).split("/")[0]
+        uzunluk = len(self.protokol+self.domain)
+        self.subpage = tam_url[uzunluk:]
+global url_parçala
+url_parçala = URLParser()
+url_parçala.urlparse("https://www.youtube.com/feed/subscriptions")
+# kullanım :
+# print(url_parçala.protokol) https://
+# print(url_parçala.domain)   www.youtube.com
+# print(url_parçala.subpage)  /feed/subscriptions
